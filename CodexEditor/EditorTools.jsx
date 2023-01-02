@@ -45,23 +45,24 @@ export const EDITOR_TOOLS = {
         config: {
             endpoints: {
                 byFile: '/api/upload-image', // Your backend file uploader endpoint
+                //byFile: 'http://192.168.10.76:8080/api/image',
                 byUrl: 'http://localhost:3000/api/upload-image', // Your endpoint that provides uploading by Url
             }
         }
     },
-    inlineImage: {
-        class: InlineImage,
-        inlineToolbar: true,
-        config: {
-            embed: {
-                display: true,
-            },
-            unsplash: {
-                appName: 'your_app_name',
-                clientId: 'your_client_id'
+    /*     inlineImage: {
+            class: InlineImage,
+            inlineToolbar: true,
+            config: {
+                embed: {
+                    display: true,
+                },
+                unsplash: {
+                    appName: 'your_app_name',
+                    clientId: 'your_client_id'
+                }
             }
-        }
-    },
+        }, */
     quote: {
         class: Quote,
         inlineToolbar: true
@@ -71,7 +72,13 @@ export const EDITOR_TOOLS = {
     checklist: CheckList,
     embed: Embed,
     inlineCode: InlineCode,
-    link: Link,
+    link:{
+        class: Link,
+        config: {
+            //endpoint: '/api/fetch-url'
+            endpoint: 'http://192.168.10.76:8080/api/links', // Your backend endpoint for url data fetching,
+        }
+    },
     list: List,
     simpleImage: SimpleImage,
     delimiter: Delimiter,
