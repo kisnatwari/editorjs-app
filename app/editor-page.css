@@ -1,0 +1,8 @@
+label[for="upload-cover-image"]{
+    opacity: 0;
+    transition-duration: 200ms;
+}
+
+.cover-image-parent:hover label[for="upload-cover-image"]{
+    opacity: 1;
+}
