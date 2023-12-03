@@ -55,7 +55,7 @@ const warningParser = ({ data }) => {
 
     return (
         <div className="bg-yellow-50 border-yellow-700 text-yellow-700 p-4 rounded">
-            <h3 className="text-lg font-bold">{title}</h3>
+            <h3 className="text-lg font-bold">☝ {title}</h3>
             <p>{message}</p>
         </div>
     );
@@ -115,7 +115,7 @@ const EditorJsToHtml = editorJsHtml({
 export default function PreviewRenderer({ data }) {
     const html = EditorJsToHtml.parse(data)
     return (
-        <div className="prose-lg max-w-full" key={data.time}>
+        <div className="prose prose-lg max-w-full" key={data.time}>
             {html.map((item, index) => {
                 if (typeof item === "string") {
                     return (
