@@ -9,7 +9,9 @@ const inlineImageParser = ({ data }) => {
     const withBackground = data.withBackground;
     const stretched = data.stretched;
 
-    return `<img src="${url}" alt="${caption}" ${withBorder ? 'border="1"' : ''} ${withBackground ? 'style="background-color: #ccc"' : ''} ${stretched ? 'style="width: 100%"' : ''} />`;
+    return `<div ${withBackground && 'className="bg-slate-500"'}>
+    <img src="${url}" alt="${caption}" ${withBorder ? 'border="1"' : ''} ${withBackground ? 'style="margin: 0 auto;"' : ''} ${stretched ? 'style="width: 100%"' : ''} />
+    </div>`;
 };
 
 const alertParser = ({ data }) => {
@@ -32,8 +34,7 @@ const alertParser = ({ data }) => {
     const alertAlignClass = align === "left" ? "text-left" : align === "center" ? "text-center" : "text-right";
 
     return (
-        <div className={`p-4 border rounded ${alertTypeClass} ${alertAlignClass}`}>
-            {message}
+        <div dangerouslySetInnerHTML={{ __html: message }} className={`p-4 border rounded ${alertTypeClass} ${alertAlignClass}`}>
         </div>
     );
 };
@@ -54,12 +55,19 @@ const warningParser = ({ data }) => {
     const message = data.message.trim();
 
     return (
-        <div className="bg-yellow-50 border-yellow-700 text-yellow-700 p-4 rounded">
-            <h3 className="text-lg font-bold">☝ {title}</h3>
-            <p>{message}</p>
+        <div className="bg-yellow-100 border-l-4 border-yellow-600 p-4">
+            <div className="flex items-start">
+                <p className='mt-1'>
+                    ☝
+                </p>
+                <div>
+                    <p className="text-sm m-2 text-slate-700 font-bold" dangerouslySetInnerHTML={{__html: title}}/>
+                    <p className="text-sm m-2 text-yellow-700" dangerouslySetInnerHTML={{ __html: message }}/>
+                </div>
+            </div>
         </div>
     );
-};
+}
 
 const quoteParser = ({ data }) => {
     const text = data.text;
@@ -81,11 +89,12 @@ const quoteParser = ({ data }) => {
 };
 
 const checklistParser = ({ data }) => {
+    console.log(data);
     const items = data.items.map((item, index) => {
         return (
             <div className="mb-2 flex items-center gap-2" key={index}>
                 <input type="checkbox" checked={item.checked} className='accent-blue-500 w-6 h-6 rounded-3xl' />
-                <span>{item.text}</span>
+                <span dangerouslySetInnerHTML={{__html: item.text}}></span>
             </div>
         );
     });
